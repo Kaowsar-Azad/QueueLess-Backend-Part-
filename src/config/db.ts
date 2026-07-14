@@ -20,13 +20,23 @@ const db = client.db(process.env.MONGODB_DB_NAME || "QueueLess-Project");
 
 
 export const auth = betterAuth({
+    baseURL: process.env.BETTER_AUTH_URL || "http://localhost:5000/api/auth",
+    trustedOrigins: ["http://localhost:3000"],
     database: mongodbAdapter(db, {
         client: client 
     }),
     emailAndPassword: {
         enabled: true,
     },
-    
+    user: {
+        additionalFields: {
+            role: {
+                type: "string",
+                required: false,
+                defaultValue: "user"
+            }
+        }
+    }
 });
 
 export const connectDB = async (): Promise<void> => {
