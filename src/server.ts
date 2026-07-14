@@ -2,6 +2,9 @@ import express, { Application, Request, Response } from 'express';
 import cors from 'cors';
 import { connectDB, auth } from './config/db';
 import { toNodeHandler } from "better-auth/node";
+import serviceRoutes from './routes/services';
+import bookingRoutes from './routes/bookings';
+import adminRoutes from './routes/admin';
 
 const app: Application = express();
 
@@ -17,6 +20,9 @@ connectDB();
 
 
 app.use("/api/auth", toNodeHandler(auth));
+app.use("/api/services", serviceRoutes);
+app.use("/api/bookings", bookingRoutes);
+app.use("/api/admin", adminRoutes);
 
 app.get('/', (req: Request, res: Response) => {
     res.send('QueueLess API is running with Better Auth & MongoDB...');

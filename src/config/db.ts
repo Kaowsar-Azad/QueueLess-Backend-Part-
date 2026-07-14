@@ -2,6 +2,7 @@ import { MongoClient } from "mongodb";
 import { betterAuth } from "better-auth";
 import { mongodbAdapter } from "@better-auth/mongo-adapter";
 import dotenv from "dotenv";
+import mongoose from "mongoose";
 
 
 dotenv.config();
@@ -42,7 +43,8 @@ export const auth = betterAuth({
 export const connectDB = async (): Promise<void> => {
     try {
         await client.connect();
-        console.log(`✅ MongoDB Connected via Better Auth Adapter`);
+        await mongoose.connect(mongoURI);
+        console.log(`✅ MongoDB Connected via Mongoose & Better Auth Adapter`);
     } catch (error) {
         console.error(`❌ Error connecting to MongoDB:`, error);
         process.exit(1);
