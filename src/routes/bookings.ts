@@ -1,6 +1,6 @@
 import { Router, Request, Response } from "express";
-import Booking from "../models/Booking";
-import Service from "../models/Service";
+import Booking from "../models/Booking.js";
+import Service from "../models/Service.js";
 
 const router = Router();
 

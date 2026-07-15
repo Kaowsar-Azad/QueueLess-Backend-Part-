@@ -1,7 +1,7 @@
 import { Router, Request, Response } from "express";
 import mongoose from "mongoose";
-import Service from "../models/Service";
-import Booking from "../models/Booking";
+import Service from "../models/Service.js";
+import Booking from "../models/Booking.js";
 
 const router = Router();
 

@@ -1,10 +1,10 @@
 import express, { Application, Request, Response } from 'express';
 import cors from 'cors';
-import { connectDB, auth } from './config/db';
+import { connectDB, auth } from './config/db.js';
 import { toNodeHandler } from "better-auth/node";
-import serviceRoutes from './routes/services';
-import bookingRoutes from './routes/bookings';
-import adminRoutes from './routes/admin';
+import serviceRoutes from './routes/services.js';
+import bookingRoutes from './routes/bookings.js';
+import adminRoutes from './routes/admin.js';
 
 const app: Application = express();
 
