@@ -6,9 +6,9 @@ const router = Router();
 // Create a new service/queue
 router.post("/", async (req: Request, res: Response): Promise<void> => {
   try {
-    const { name, description, category, ownerId, ownerName, startHour, endHour, maxTokens } = req.body;
+    const { name, description, category, ownerId, ownerName, address, contactNumber, startHour, endHour, maxTokens } = req.body;
     
-    if (!name || !description || !category || !ownerId || !ownerName || !startHour || !endHour) {
+    if (!name || !description || !category || !ownerId || !ownerName || !address || !contactNumber || !startHour || !endHour) {
        res.status(400).json({ error: "Missing required fields" });
        return;
     }
@@ -19,6 +19,8 @@ router.post("/", async (req: Request, res: Response): Promise<void> => {
       category,
       ownerId,
       ownerName,
+      address,
+      contactNumber,
       startHour,
       endHour,
       maxTokens: maxTokens ? parseInt(maxTokens) : 50

@@ -6,6 +6,8 @@ export interface IService extends Document {
   category: string;
   ownerId: string;
   ownerName: string;
+  address: string;
+  contactNumber: string;
   startHour: string;
   endHour: string;
   maxTokens: number;
@@ -20,6 +22,8 @@ const ServiceSchema: Schema = new Schema({
   category: { type: String, required: true },
   ownerId: { type: String, required: true },
   ownerName: { type: String, required: true },
+  address: { type: String, required: true },
+  contactNumber: { type: String, required: true },
   startHour: { type: String, required: true },
   endHour: { type: String, required: true },
   maxTokens: { type: Number, default: 50 },
