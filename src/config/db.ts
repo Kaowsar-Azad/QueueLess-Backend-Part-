@@ -37,6 +37,12 @@ export const auth = betterAuth({
                 defaultValue: "user"
             }
         }
+    },
+    advanced: {
+        defaultCookieAttributes: {
+            sameSite: "none",
+            secure: true
+        }
     }
 });
 
