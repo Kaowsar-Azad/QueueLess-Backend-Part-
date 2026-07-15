@@ -49,7 +49,9 @@ export const auth = betterAuth({
 export const connectDB = async (): Promise<void> => {
     try {
         await client.connect();
-        await mongoose.connect(mongoURI);
+        await mongoose.connect(mongoURI, {
+            dbName: process.env.MONGODB_DB_NAME || "QueueLess-Project"
+        });
         console.log(`✅ MongoDB Connected via Mongoose & Better Auth Adapter`);
     } catch (error) {
         console.error(`❌ Error connecting to MongoDB:`, error);
