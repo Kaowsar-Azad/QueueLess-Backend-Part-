@@ -1,11 +1,12 @@
 import { Router, Request, Response } from "express";
 import Booking from "../models/Booking.js";
 import Service from "../models/Service.js";
+import { requireAuth } from "../middleware/authMiddleware.js";
 
 const router = Router();
 
 // Create a new booking (Book Token)
-router.post("/", async (req: Request, res: Response): Promise<void> => {
+router.post("/", requireAuth, async (req: Request, res: Response): Promise<void> => {
   try {
     const { serviceId, userId, userName } = req.body;
 
@@ -57,7 +58,7 @@ router.post("/", async (req: Request, res: Response): Promise<void> => {
 });
 
 // Get bookings (filtered by userId or serviceId)
-router.get("/", async (req: Request, res: Response): Promise<void> => {
+router.get("/", requireAuth, async (req: Request, res: Response): Promise<void> => {
   try {
     const { userId, serviceId } = req.query;
     let filter: any = {};
@@ -76,7 +77,7 @@ router.get("/", async (req: Request, res: Response): Promise<void> => {
 });
 
 // Update booking status (e.g. Cancel Booking)
-router.patch("/:id", async (req: Request, res: Response): Promise<void> => {
+router.patch("/:id", requireAuth, async (req: Request, res: Response): Promise<void> => {
   try {
     const { id } = req.params;
     const { status } = req.body;

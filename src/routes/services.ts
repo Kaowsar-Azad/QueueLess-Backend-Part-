@@ -1,10 +1,11 @@
 import { Router, Request, Response } from "express";
 import Service from "../models/Service.js";
+import { requireAuth } from "../middleware/authMiddleware.js";
 
 const router = Router();
 
 // Create a new service/queue
-router.post("/", async (req: Request, res: Response): Promise<void> => {
+router.post("/", requireAuth, async (req: Request, res: Response): Promise<void> => {
   try {
     const { name, description, category, ownerId, ownerName, address, contactNumber, startHour, endHour, maxTokens } = req.body;
     
@@ -62,7 +63,7 @@ router.get("/:id", async (req: Request, res: Response): Promise<void> => {
 });
 
 // Delete a service
-router.delete("/:id", async (req: Request, res: Response): Promise<void> => {
+router.delete("/:id", requireAuth, async (req: Request, res: Response): Promise<void> => {
   try {
     const { id } = req.params;
     const deleted = await Service.findByIdAndDelete(id);

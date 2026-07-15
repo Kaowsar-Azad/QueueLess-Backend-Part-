@@ -2,10 +2,11 @@ import { Router, Request, Response } from "express";
 import mongoose from "mongoose";
 import Service from "../models/Service.js";
 import Booking from "../models/Booking.js";
+import { requireAdmin } from "../middleware/authMiddleware.js";
 
 const router = Router();
 
-router.get("/stats", async (req: Request, res: Response): Promise<void> => {
+router.get("/stats", requireAdmin, async (req: Request, res: Response): Promise<void> => {
   try {
     const db = mongoose.connection.db;
     if (!db) {
