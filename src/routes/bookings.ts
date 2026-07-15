@@ -21,6 +21,17 @@ router.post("/", requireAuth, async (req: Request, res: Response): Promise<void>
       return;
     }
 
+    // Check if the user already has an active (pending) booking for this service
+    const existingBooking = await Booking.findOne({
+      serviceId,
+      userId,
+      status: "pending"
+    });
+    if (existingBooking) {
+      res.status(400).json({ error: "You already have an active token for this service." });
+      return;
+    }
+
     // Get today's bookings for this service to determine token number
     const today = new Date();
     today.setHours(0, 0, 0, 0);
