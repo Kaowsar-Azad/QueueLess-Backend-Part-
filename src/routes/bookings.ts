@@ -109,6 +109,10 @@ router.patch("/:id", requireAuth, async (req: Request, res: Response): Promise<v
       return;
     }
 
+    if (status === "served") {
+      await Service.findByIdAndUpdate(updated.serviceId, { currentQueue: updated.tokenNumber });
+    }
+
     res.json(updated);
   } catch (error: any) {
     res.status(500).json({ error: error.message || "Failed to update booking" });
