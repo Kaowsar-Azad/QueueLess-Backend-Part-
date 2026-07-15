@@ -47,6 +47,6 @@ export const connectDB = async (): Promise<void> => {
         console.log(`✅ MongoDB Connected via Mongoose & Better Auth Adapter`);
     } catch (error) {
         console.error(`❌ Error connecting to MongoDB:`, error);
-        process.exit(1);
+        // Do not process.exit(1) in Serverless environments
     }
 };
