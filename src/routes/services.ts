@@ -7,7 +7,7 @@ const router = Router();
 // Create a new service/queue
 router.post("/", requireAuth, async (req: Request, res: Response): Promise<void> => {
   try {
-    const { name, description, category, ownerId, ownerName, address, contactNumber, startHour, endHour, maxTokens, images } = req.body;
+    const { name, description, category, ownerId, ownerName, address, contactNumber, startHour, endHour, maxTokens, images, averageTimePerToken } = req.body;
     
     if (!name || !description || !category || !ownerId || !ownerName || !address || !contactNumber || !startHour || !endHour) {
        res.status(400).json({ error: "Missing required fields" });
@@ -25,13 +25,49 @@ router.post("/", requireAuth, async (req: Request, res: Response): Promise<void>
       startHour,
       endHour,
       images,
-      maxTokens: maxTokens ? parseInt(maxTokens) : 50
+      maxTokens: maxTokens ? parseInt(maxTokens) : 50,
+      averageTimePerToken: averageTimePerToken ? parseInt(averageTimePerToken) : 20
     });
 
     await newService.save();
     res.status(201).json(newService);
   } catch (error: any) {
     res.status(500).json({ error: error.message || "Failed to create service" });
+  }
+});
+
+// Get top services by rating
+router.get("/top", async (req: Request, res: Response): Promise<void> => {
+  try {
+    const services = await Service.aggregate([
+      {
+        $lookup: {
+          from: "reviews",
+          localField: "_id",
+          foreignField: "serviceId",
+          as: "reviews"
+        }
+      },
+      {
+        $addFields: {
+          averageRating: { $avg: "$reviews.rating" }
+        }
+      },
+      {
+        $sort: { averageRating: -1, createdAt: -1 }
+      },
+      {
+        $limit: 4
+      },
+      {
+        $project: {
+          reviews: 0
+        }
+      }
+    ]);
+    res.json(services);
+  } catch (error: any) {
+    res.status(500).json({ error: error.message || "Failed to fetch top services" });
   }
 });
 

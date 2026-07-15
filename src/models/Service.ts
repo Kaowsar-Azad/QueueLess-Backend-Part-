@@ -14,6 +14,7 @@ export interface IService extends Document {
   maxTokens: number;
   currentQueue: number;
   totalTokens: number;
+  averageTimePerToken: number;
   createdAt: Date;
 }
 
@@ -31,6 +32,7 @@ const ServiceSchema: Schema = new Schema({
   maxTokens: { type: Number, default: 50 },
   currentQueue: { type: Number, default: 0 },
   totalTokens: { type: Number, default: 0 },
+  averageTimePerToken: { type: Number, default: 20 },
   createdAt: { type: Date, default: Date.now }
 });
 
