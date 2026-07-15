@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import { auth } from "../config/db.js";
+import { fromNodeHeaders } from "better-auth/node";
 
 declare global {
   namespace Express {
@@ -12,7 +13,7 @@ declare global {
 export const requireAuth = async (req: Request, res: Response, next: NextFunction): Promise<any> => {
     try {
         const session = await auth.api.getSession({
-            headers: req.headers as any
+            headers: fromNodeHeaders(req.headers)
         });
 
         if (!session) {
@@ -30,7 +31,7 @@ export const requireAuth = async (req: Request, res: Response, next: NextFunctio
 export const requireAdmin = async (req: Request, res: Response, next: NextFunction): Promise<any> => {
     try {
         const session = await auth.api.getSession({
-            headers: req.headers as any
+            headers: fromNodeHeaders(req.headers)
         });
 
         if (!session) {

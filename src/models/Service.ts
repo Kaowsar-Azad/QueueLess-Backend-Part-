@@ -10,6 +10,7 @@ export interface IService extends Document {
   contactNumber: string;
   startHour: string;
   endHour: string;
+  images?: string[];
   maxTokens: number;
   currentQueue: number;
   totalTokens: number;
@@ -26,6 +27,7 @@ const ServiceSchema: Schema = new Schema({
   contactNumber: { type: String, required: true },
   startHour: { type: String, required: true },
   endHour: { type: String, required: true },
+  images: { type: [String], default: [] },
   maxTokens: { type: Number, default: 50 },
   currentQueue: { type: Number, default: 0 },
   totalTokens: { type: Number, default: 0 },
