@@ -2,11 +2,6 @@
 node_modules/
 
 # Environment files
-.env
-.env.local
-.env.development
-.env.production
-.env.*
 
 # Logs
 logs
@@ -35,7 +30,6 @@ build/
 out/
 
 # IDEs and editors
-.vscode/
 .idea/
 *.suo
 *.ntvs*
@@ -43,3 +37,12 @@ out/
 *.sln
 *.sw?
 .DS_Store
+
+# Environment variables & secrets (added by GitHub Guardian)
+*.env
+!.env.example
+!.env.sample
+.envrc
+.venv/
+venv/
+config.bat
