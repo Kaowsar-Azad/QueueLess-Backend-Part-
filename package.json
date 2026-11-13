@@ -1,9 +1,9 @@
 {
   "type": "module",
   "scripts": {
-    "dev": "node init && npx tsx watch src/server.ts",
-    "build": "node init && tsc",
-    "start": "node init && node dist/server.js"
+    "dev": "npx tsx watch src/server.ts",
+    "build": "tsc",
+    "start": "node dist/server.js"
   },
   "dependencies": {
     "@better-auth/mongo-adapter": "^1.6.23",
